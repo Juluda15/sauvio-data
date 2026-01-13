@@ -1,4 +1,4 @@
-﻿namespace SauvioData.Models.Transaction
+﻿namespace SauvioData.Entities.Transaction
 {
     public class Transaction
     {

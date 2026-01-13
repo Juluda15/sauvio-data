@@ -1,4 +1,4 @@
-﻿using SauvioData.Models;
+﻿using SauvioData.Entities.User;
 
 namespace SuavioData.Interfaces
 {

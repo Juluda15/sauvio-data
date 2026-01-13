@@ -1,14 +1,14 @@
 ﻿using Npgsql;
-using SauvioData.Models;
+using SauvioData.Entities.User;
 using SuavioData.Interfaces;
 
 namespace SauvioData.Data
 {
-    public class AccountData : IAccountData
+    public class AccountRepo : IAccountData
     {
         private readonly DbConnectionFactory _db;
 
-        public AccountData(DbConnectionFactory db)
+        public AccountRepo(DbConnectionFactory db)
         {
             _db = db;
         }
@@ -88,6 +88,7 @@ namespace SauvioData.Data
             Password = r["password"] as string,
             ConfirmationToken = r["confirmationtoken"] as string,
             IsConfirmed = r.GetBoolean(r.GetOrdinal("isconfirmed")),
+            IsAdmin = r.GetBoolean(r.GetOrdinal("isadmin")),
             Balance = r.GetDecimal(r.GetOrdinal("balance")),
             TotalIncome = r.GetDecimal(r.GetOrdinal("totalincome")),
             TotalExpense = r.GetDecimal(r.GetOrdinal("totalexpense"))
@@ -106,5 +107,4 @@ namespace SauvioData.Data
             return r.Read() ? MapUser(r) : null;
         }
     }
-
 }

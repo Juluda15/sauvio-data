@@ -1,5 +1,5 @@
-﻿using SauvioData.Models;
-using SauvioData.Models.Transaction;
+﻿using SauvioData.Entities.Transaction;
+using SauvioData.Entities.User;
 
 namespace SauvioData.Interfaces
 {
@@ -14,7 +14,12 @@ namespace SauvioData.Interfaces
             decimal incomeDelta,
             decimal expenseDelta
         );
-
         Task<User?> GetUserById(int userId);
+        Task<decimal> CalculateTotalIncome(int userId);
+        Task<decimal> CalculateTotalExpense(int userId);
+        Task<decimal> CalculateBalance(int userId);
+        Task DeleteTransaction(int transactionId);
+        Task UpdateTransaction(Transaction t);
+        Task<Transaction?> GetTransactionById(int transactionId);
     }
 }
