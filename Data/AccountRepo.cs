@@ -106,5 +106,33 @@ namespace SauvioData.Data
             using var r = await cmd.ExecuteReaderAsync();
             return r.Read() ? MapUser(r) : null;
         }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = new List<User>();
+
+            using var conn = _db.Create();
+            await conn.OpenAsync();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM users", conn);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                users.Add(MapUser(reader));
+            }
+
+            return users;
+        }
+
+        public async Task SetAdmin(int userId, bool isAdmin)
+        {
+            using var conn = _db.Create();
+            await conn.OpenAsync();
+            using var cmd = new NpgsqlCommand("UPDATE users SET isadmin = @isAdmin WHERE id = @id", conn);
+            cmd.Parameters.AddWithValue("@isAdmin", isAdmin);
+            cmd.Parameters.AddWithValue("@id", userId);
+            await cmd.ExecuteNonQueryAsync();
+        }
     }
 }

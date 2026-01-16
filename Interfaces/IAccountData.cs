@@ -10,6 +10,9 @@ namespace SuavioData.Interfaces
         Task<int> CreateUser(User user);
         Task ConfirmUser(int userId);
         Task UpdatePassword(int userId, string hashedPassword);
+        Task<List<User>> GetAllUsers();
+        Task SetAdmin(int userId, bool isAdmin);
+
     }
 }
 
